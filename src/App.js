@@ -1,21 +1,10 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { MainNav } from "./components/main_nav";
 
-const App = ({ name }) => {
+const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello {name}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainNav />
     </div>
   );
 };
