@@ -3,7 +3,7 @@ import Nav from "react-bootstrap/Nav";
 
 export const MainNav = () => {
   return (
-    <Navbar expand fixed="top" variant="dark" bg="dark">
+    <Navbar expand fixed="top" variant="dark">
       <Nav className="mr-auto">
         <Nav.Link>News Feed</Nav.Link>
         <Nav.Link>My stories</Nav.Link>
