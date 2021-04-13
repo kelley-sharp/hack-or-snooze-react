@@ -9,7 +9,7 @@ export const MainNav = () => {
         <CustomNavLink to="/">News Feed</CustomNavLink>
         <CustomNavLink to="/my-stories">My stories</CustomNavLink>
         <CustomNavLink to="/favorites">Favorites</CustomNavLink>
-        <CustomNavLink to="/auth">Login</CustomNavLink>
+        <CustomNavLink to="/login">Login</CustomNavLink>
       </Nav>
     </Navbar>
   );

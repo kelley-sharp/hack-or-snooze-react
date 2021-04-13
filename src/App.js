@@ -3,6 +3,7 @@ import { MainNav } from "./components/main_nav";
 import Container from "react-bootstrap/Container";
 import { NewsFeedPage } from "./components/news_feed_page";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { LoginPage } from "./components/login_page";
 
 const App = () => {
   return (
@@ -10,8 +11,8 @@ const App = () => {
       <MainNav />
       <Container className="mt-5 pt-5">
         <Switch>
-          <Route path="/auth">
-            <span>Auth</span>
+          <Route path="/login">
+            <LoginPage />
           </Route>
           <Route path="/favorites">
             <span>favorites</span>
