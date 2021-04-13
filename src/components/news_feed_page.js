@@ -27,8 +27,9 @@ export const NewsFeedPage = () => {
       {isLoading ? (
         <Spinner animation="border" variant="dark" />
       ) : (
-        stories.map((story) => (
+        stories.map((story, idx) => (
           <Story
+            key={idx}
             author={story.author}
             id={story.storyId}
             title={story.title}

@@ -2,15 +2,29 @@ import "./App.css";
 import { MainNav } from "./components/main_nav";
 import Container from "react-bootstrap/Container";
 import { NewsFeedPage } from "./components/news_feed_page";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const App = () => {
   return (
-    <div className="App">
+    <Router>
       <MainNav />
       <Container className="mt-5 pt-5">
-        <NewsFeedPage />
+        <Switch>
+          <Route path="/auth">
+            <span>Auth</span>
+          </Route>
+          <Route path="/favorites">
+            <span>favorites</span>
+          </Route>
+          <Route path="/my-stories">
+            <span>my stories</span>
+          </Route>
+          <Route path="/">
+            <NewsFeedPage />
+          </Route>
+        </Switch>
       </Container>
-    </div>
+    </Router>
   );
 };
 
