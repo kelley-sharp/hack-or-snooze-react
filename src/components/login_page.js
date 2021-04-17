@@ -1,21 +1,26 @@
 import { MainCard } from "./main_card";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
 import { API_URL } from "../config";
+import { UserContext } from "../context/user_context";
 
 export const LoginPage = () => {
   const [isSignup, setIsSignup] = useState(false);
+  const toggleIsSignup = () => setIsSignup(!isSignup);
+  const title = isSignup ? "Sign up" : "Login";
+
+  // form fields
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  // form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState(null);
 
-  const toggleIsSignup = () => setIsSignup(!isSignup);
-
-  const title = isSignup ? "Sign up" : "Login";
+  const { setIsLoggedIn } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -29,13 +34,11 @@ export const LoginPage = () => {
           password,
         },
       });
-      console.log(response.data);
+      setIsLoggedIn(true);
     } catch (error) {
       setApiError(error.response.data.error.message);
-      console.log(error.response);
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   const handleSignup = async (event) => {
@@ -51,13 +54,11 @@ export const LoginPage = () => {
           name,
         },
       });
-      console.log(response.data);
+      setIsLoggedIn(true);
     } catch (error) {
       setApiError(error.response.data.error.message);
-      console.log(error.response);
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (
