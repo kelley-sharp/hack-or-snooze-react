@@ -12,15 +12,15 @@ export const LoginPage = () => {
   const title = isSignup ? "Sign up" : "Login";
 
   // form fields
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [usernameField, setUsernameField] = useState("");
+  const [passwordField, setPasswordField] = useState("");
+  const [nameField, setNameField] = useState("");
 
   // form submission
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState(null);
 
-  const { setIsLoggedIn } = useContext(UserContext);
+  const { setName, setToken } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -30,11 +30,13 @@ export const LoginPage = () => {
     try {
       const response = await axios.post(API_URL + "/login", {
         user: {
-          username,
-          password,
+          username: usernameField,
+          password: passwordField,
         },
       });
-      setIsLoggedIn(true);
+
+      setToken(response.data.token);
+      setName(response.data.user.name);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);
@@ -49,12 +51,13 @@ export const LoginPage = () => {
     try {
       const response = await axios.post(API_URL + "/signup", {
         user: {
-          username,
-          password,
-          name,
+          username: usernameField,
+          password: passwordField,
+          name: nameField,
         },
       });
-      setIsLoggedIn(true);
+      setToken(response.data.token);
+      setName(response.data.user.name);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);
@@ -74,8 +77,8 @@ export const LoginPage = () => {
           <Form.Control
             type="text"
             placeholder="Enter Username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={usernameField}
+            onChange={(event) => setUsernameField(event.target.value)}
             disabled={isSubmitting}
             required
           />
@@ -86,8 +89,8 @@ export const LoginPage = () => {
           <Form.Control
             type="password"
             placeholder="Password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            value={passwordField}
+            onChange={(event) => setPasswordField(event.target.value)}
             disabled={isSubmitting}
             required
           />
@@ -98,8 +101,8 @@ export const LoginPage = () => {
             <Form.Control
               type="text"
               placeholder="Name"
-              value={name}
-              onChange={(event) => setName(event.target.value)}
+              value={nameField}
+              onChange={(event) => setNameField(event.target.value)}
               disabled={isSubmitting}
               required
             />

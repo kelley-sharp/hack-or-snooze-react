@@ -13,9 +13,15 @@ import { useState } from "react";
 import { UserContext } from "./context/user_context";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [name, setName] = useState("");
+  const [token, setToken] = useState(null);
+
+  const isLoggedIn = Boolean(token);
+
   return (
-    <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+    <UserContext.Provider
+      value={{ isLoggedIn, name, setName, token, setToken }}
+    >
       <Router>
         <MainNav />
         <Container className="mt-5 pt-5">
