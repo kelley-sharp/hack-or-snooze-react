@@ -36,7 +36,9 @@ export const LoginPage = () => {
       });
 
       setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
       setName(response.data.user.name);
+      localStorage.setItem("name", response.data.user.name);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);
@@ -57,7 +59,9 @@ export const LoginPage = () => {
         },
       });
       setToken(response.data.token);
+      localStorage.setItem("token", response.data.token);
       setName(response.data.user.name);
+      localStorage.setItem("name", response.data.user.name);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);

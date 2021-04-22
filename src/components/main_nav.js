@@ -18,7 +18,13 @@ const CustomNavLink = ({ to, children }) => {
 };
 
 export const MainNav = () => {
-  const { isLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setToken } = useContext(UserContext);
+
+  const handleLogout = () => {
+    setToken(null);
+    localStorage.clear();
+  };
+
   return (
     <Navbar expand fixed="top" variant="dark">
       <Nav className="w-100">
@@ -31,7 +37,7 @@ export const MainNav = () => {
         )}
         <div className="ml-auto">
           {isLoggedIn ? (
-            <Nav.Link onClick={() => false}>Logout</Nav.Link>
+            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
           ) : (
             <CustomNavLink to="/login">Login</CustomNavLink>
           )}

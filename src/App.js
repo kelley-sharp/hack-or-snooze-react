@@ -9,7 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { LoginPage } from "./components/login_page";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserContext } from "./context/user_context";
 
 const App = () => {
@@ -17,6 +17,17 @@ const App = () => {
   const [token, setToken] = useState(null);
 
   const isLoggedIn = Boolean(token);
+
+  useEffect(() => {
+    const existingToken = localStorage.getItem("token");
+    if (existingToken) {
+      setToken(existingToken);
+    }
+    const existingName = localStorage.getItem("name");
+    if (existingName) {
+      setName(existingName);
+    }
+  }, []);
 
   return (
     <UserContext.Provider
