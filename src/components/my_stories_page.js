@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { MainCard } from "./main_card";
-// import { StoryForm } from "./story_form";
+import { StoryForm } from "./story_form";
 import { Story } from "./story";
 import { Spinner } from "react-bootstrap";
 import { UserContext } from "../context/user_context";
@@ -30,8 +30,14 @@ export const MyStoriesPage = () => {
   }, [token, username]);
 
   return (
-    <MainCard title="My Stories">
-      {/* <StoryForm /> */}
+    <MainCard title="Post a New Story">
+      <StoryForm />
+      <div
+        style={{ height: 38 }}
+        className="d-flex flex-column justify-content-end border-bottom"
+      >
+        <h2 className="h6">My Stories</h2>
+      </div>
       {isLoading ? (
         <Spinner animation="border" variant="dark" />
       ) : (
