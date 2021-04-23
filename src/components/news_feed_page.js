@@ -12,8 +12,8 @@ export const NewsFeedPage = () => {
   useEffect(() => {
     async function getStories() {
       try {
-        const result = await axios.get(API_URL + "/stories");
-        setStories(result.data.stories);
+        const response = await axios.get(API_URL + "/stories");
+        setStories(response.data.stories);
         setIsLoading(false);
       } catch (error) {
         alert("Something went wrong! Please try again");

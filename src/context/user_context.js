@@ -5,5 +5,7 @@ export const UserContext = createContext({
   token: null,
   setToken: () => null,
   name: "",
-  setName: () => "",
+  setName: () => null,
+  username: "",
+  setUsername: () => null,
 });

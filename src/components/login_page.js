@@ -1,5 +1,5 @@
 import { MainCard } from "./main_card";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
@@ -20,7 +20,7 @@ export const LoginPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState(null);
 
-  const { setName, setToken } = useContext(UserContext);
+  const { setName, setUsername, setToken } = useContext(UserContext);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -39,6 +39,8 @@ export const LoginPage = () => {
       localStorage.setItem("token", response.data.token);
       setName(response.data.user.name);
       localStorage.setItem("name", response.data.user.name);
+      setUsername(response.data.user.username);
+      localStorage.setItem("username", response.data.user.username);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);
@@ -62,6 +64,8 @@ export const LoginPage = () => {
       localStorage.setItem("token", response.data.token);
       setName(response.data.user.name);
       localStorage.setItem("name", response.data.user.name);
+      setUsername(response.data.user.username);
+      localStorage.setItem("username", response.data.user.username);
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);

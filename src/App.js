@@ -11,9 +11,11 @@ import {
 import { LoginPage } from "./components/login_page";
 import { useState, useEffect } from "react";
 import { UserContext } from "./context/user_context";
+import { MyStoriesPage } from "./components/my_stories_page";
 
 const App = () => {
   const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [token, setToken] = useState(null);
 
   const isLoggedIn = Boolean(token);
@@ -27,11 +29,23 @@ const App = () => {
     if (existingName) {
       setName(existingName);
     }
+    const existingUsername = localStorage.getItem("username");
+    if (existingUsername) {
+      setName(existingUsername);
+    }
   }, []);
 
   return (
     <UserContext.Provider
-      value={{ isLoggedIn, name, setName, token, setToken }}
+      value={{
+        isLoggedIn,
+        name,
+        setName,
+        token,
+        setToken,
+        username,
+        setUsername,
+      }}
     >
       <Router>
         <MainNav />
@@ -44,7 +58,7 @@ const App = () => {
               {isLoggedIn ? <span>favorites</span> : <Redirect to="/login" />}
             </Route>
             <Route path="/my-stories">
-              {isLoggedIn ? <span>my stories</span> : <Redirect to="/login" />}
+              {isLoggedIn ? <MyStoriesPage /> : <Redirect to="/login" />}
             </Route>
             <Route path="/">
               <NewsFeedPage />
