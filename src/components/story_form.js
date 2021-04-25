@@ -27,6 +27,9 @@ export const StoryForm = ({ getUserStories }) => {
           url: storyUrlField,
         },
       });
+      setTitleField("");
+      setAuthorField("");
+      setStoryUrlField("");
       setIsSubmitting(false);
       getUserStories();
     } catch (error) {
