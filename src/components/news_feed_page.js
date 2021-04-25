@@ -34,7 +34,7 @@ export const NewsFeedPage = () => {
             id={story.storyId}
             title={story.title}
             url={story.url}
-            username={story.username}
+            postedByUsername={story.username}
           />
         ))
       )}

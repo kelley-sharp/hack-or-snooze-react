@@ -2,10 +2,9 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { API_URL } from "../config";
 import { UserContext } from "../context/user_context";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Row, Col } from "react-bootstrap";
 
-export const StoryForm = () => {
-  // const [userStories, setUserStories] = useState([]);
+export const StoryForm = ({ getUserStories }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [titleField, setTitleField] = useState("");
   const [authorField, setAuthorField] = useState("");
@@ -29,6 +28,7 @@ export const StoryForm = () => {
         },
       });
       setIsSubmitting(false);
+      getUserStories();
     } catch (error) {
       setApiError(error.response.data.error.message);
       setIsSubmitting(false);
@@ -37,47 +37,80 @@ export const StoryForm = () => {
 
   return (
     <Form
-      style={{ maxWidth: 300 }}
+      style={{ width: "100%" }}
       className="mt-3"
       onSubmit={handleCreateStory}
     >
       {apiError && <p className="text-danger">{apiError}</p>}
-      <Form.Group controlId="title">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="enter story title,"
-          value={titleField}
-          onChange={(event) => setTitleField(event.target.value)}
-          disabled={isSubmitting}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="author">
-        <Form.Label>Author</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="who it was written by"
-          value={authorField}
-          onChange={(event) => setAuthorField(event.target.value)}
-          disabled={isSubmitting}
-          required
-        />
-      </Form.Group>
-      <Form.Group controlId="url">
-        <Form.Label>Story URL</Form.Label>
-        <Form.Control
-          type="text"
-          placeholder="and add the link"
-          value={storyUrlField}
-          onChange={(event) => setStoryUrlField(event.target.value)}
-          disabled={isSubmitting}
-          required
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit" disabled={isSubmitting}>
-        Submit
-      </Button>
+      <Row>
+        <Col
+          xs={12}
+          lg={3}
+          className="d-lg-flex flex-lg-column justify-content-lg-end"
+        >
+          <Form.Group controlId="title" className="mb-lg-0">
+            <Form.Label>Title</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="enter the story title"
+              value={titleField}
+              onChange={(event) => setTitleField(event.target.value)}
+              disabled={isSubmitting}
+              required
+            />
+          </Form.Group>
+        </Col>
+        <Col
+          xs={12}
+          lg={3}
+          className="d-lg-flex flex-lg-column justify-content-lg-end"
+        >
+          <Form.Group controlId="author" className="mb-lg-0">
+            <Form.Label>Author</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="who it was written by"
+              value={authorField}
+              onChange={(event) => setAuthorField(event.target.value)}
+              disabled={isSubmitting}
+              required
+            />
+          </Form.Group>
+        </Col>
+
+        <Col
+          xs={12}
+          lg={3}
+          className="d-lg-flex flex-lg-column justify-content-lg-end"
+        >
+          <Form.Group controlId="url" className="mb-lg-0">
+            <Form.Label>Story URL</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="and add the link"
+              value={storyUrlField}
+              onChange={(event) => setStoryUrlField(event.target.value)}
+              disabled={isSubmitting}
+              required
+            />
+          </Form.Group>
+        </Col>
+        <Col
+          xs={12}
+          lg={3}
+          className="d-lg-flex flex-lg-column justify-content-lg-end align-items-lg-start"
+        >
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={isSubmitting}
+            style={{ marginBottom: 1 }}
+            className="border-0"
+          >
+            Submit
+          </Button>
+        </Col>
+      </Row>
     </Form>
   );
 };

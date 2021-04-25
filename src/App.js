@@ -1,4 +1,4 @@
-import "./App.css";
+import "./app.css";
 import { MainNav } from "./components/main_nav";
 import Container from "react-bootstrap/Container";
 import { NewsFeedPage } from "./components/news_feed_page";
@@ -9,16 +9,32 @@ import {
   Redirect,
 } from "react-router-dom";
 import { LoginPage } from "./components/login_page";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { UserContext } from "./context/user_context";
 import { MyStoriesPage } from "./components/my_stories_page";
+import { FavoritesPage } from "./components/favorites_page";
+import axios from "axios";
+import { API_URL } from "./config";
 
 const App = () => {
   const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [token, setToken] = useState(null);
+  const [userFavorites, setUserFavorites] = useState([]);
 
   const isLoggedIn = Boolean(token);
+
+  const getUserFavorites = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/users/${username}?token=${token}`
+      );
+      setUserFavorites(response.data.user.favorites);
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong! Please try again");
+    }
+  }, [token, username]);
 
   useEffect(() => {
     const existingToken = localStorage.getItem("token");
@@ -31,9 +47,29 @@ const App = () => {
     }
     const existingUsername = localStorage.getItem("username");
     if (existingUsername) {
-      setName(existingUsername);
+      setUsername(existingUsername);
     }
-  }, []);
+  }, [getUserFavorites]);
+
+  useEffect(() => {
+    if (token && username) {
+      getUserFavorites();
+    }
+  }, [getUserFavorites, token, username]);
+
+  const addToFavorites = async (id) => {
+    await axios.post(
+      `${API_URL}/users/${username}/favorites/${id}?token=${token}`
+    );
+    getUserFavorites();
+  };
+
+  const deleteFromFavorites = async (id) => {
+    await axios.delete(
+      `${API_URL}/users/${username}/favorites/${id}?token=${token}`
+    );
+    getUserFavorites();
+  };
 
   return (
     <UserContext.Provider
@@ -45,6 +81,10 @@ const App = () => {
         setToken,
         username,
         setUsername,
+        addToFavorites,
+        deleteFromFavorites,
+        userFavorites,
+        getUserFavorites,
       }}
     >
       <Router>
@@ -55,7 +95,7 @@ const App = () => {
               {isLoggedIn ? <Redirect to="/" /> : <LoginPage />}
             </Route>
             <Route path="/favorites">
-              {isLoggedIn ? <span>favorites</span> : <Redirect to="/login" />}
+              {isLoggedIn ? <FavoritesPage /> : <Redirect to="/login" />}
             </Route>
             <Route path="/my-stories">
               {isLoggedIn ? <MyStoriesPage /> : <Redirect to="/login" />}

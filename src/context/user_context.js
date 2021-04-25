@@ -8,4 +8,8 @@ export const UserContext = createContext({
   setName: () => null,
   username: "",
   setUsername: () => null,
+  addToFavorites: () => null,
+  deleteFromFavorites: () => null,
+  userFavorites: [],
+  setUserFavorites: () => null,
 });
