@@ -2,10 +2,10 @@ import { useState, useEffect, useContext, useCallback } from "react";
 import { MainCard } from "./main_card";
 import { StoryForm } from "./story_form";
 import { Story } from "./story";
-import { Spinner } from "react-bootstrap";
 import { UserContext } from "../context/user_context";
 import { API_URL } from "../config";
 import axios from "axios";
+import { LoadingSpinner } from "./loading_spinner";
 
 export const MyStoriesPage = () => {
   const [userStories, setUserStories] = useState([]);
@@ -37,7 +37,7 @@ export const MyStoriesPage = () => {
         <h2 className="h6">My Stories</h2>
       </div>
       {isLoading ? (
-        <Spinner animation="border" variant="dark" />
+        <LoadingSpinner />
       ) : (
         userStories.map((userStory, idx) => (
           <Story

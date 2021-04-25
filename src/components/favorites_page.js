@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { MainCard } from "./main_card";
 import { Story } from "./story";
 import { UserContext } from "../context/user_context";
-import { Spinner } from "react-bootstrap";
+import { LoadingSpinner } from "./loading_spinner";
 
 export const FavoritesPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +20,7 @@ export const FavoritesPage = () => {
   return (
     <MainCard title="My Favorite Stories">
       {isLoading ? (
-        <Spinner animation="border" variant="dark" />
+        <LoadingSpinner />
       ) : (
         userFavorites.map((userFavorite, idx) => {
           return (

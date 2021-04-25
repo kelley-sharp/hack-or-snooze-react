@@ -3,7 +3,7 @@ import axios from "axios";
 import { API_URL } from "../config";
 import { useState, useEffect } from "react";
 import { Story } from "./story";
-import Spinner from "react-bootstrap/Spinner";
+import { LoadingSpinner } from "./loading_spinner";
 
 export const NewsFeedPage = () => {
   const [stories, setStories] = useState([]);
@@ -25,7 +25,7 @@ export const NewsFeedPage = () => {
   return (
     <MainCard title="Recent Stories">
       {isLoading ? (
-        <Spinner animation="border" variant="dark" />
+        <LoadingSpinner />
       ) : (
         stories.map((story, idx) => (
           <Story
