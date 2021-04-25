@@ -55,7 +55,6 @@ export const StoryForm = ({ getUserStories }) => {
             <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
-              placeholder="enter the story title"
               value={titleField}
               onChange={(event) => setTitleField(event.target.value)}
               disabled={isSubmitting}
@@ -72,7 +71,6 @@ export const StoryForm = ({ getUserStories }) => {
             <Form.Label>Author</Form.Label>
             <Form.Control
               type="text"
-              placeholder="who it was written by"
               value={authorField}
               onChange={(event) => setAuthorField(event.target.value)}
               disabled={isSubmitting}
@@ -90,7 +88,6 @@ export const StoryForm = ({ getUserStories }) => {
             <Form.Label>Story URL</Form.Label>
             <Form.Control
               type="text"
-              placeholder="and add the link"
               value={storyUrlField}
               onChange={(event) => setStoryUrlField(event.target.value)}
               disabled={isSubmitting}

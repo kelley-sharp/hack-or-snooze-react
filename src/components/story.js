@@ -35,9 +35,9 @@ export const Story = ({ author, id, url, postedByUsername, title }) => {
     <div className="d-flex p-3 pl-4 border-bottom">
       <div className="pr-3" onClick={() => setIsFavorite(!isFavorite)}>
         {isFavorite ? (
-          <FaStar onClick={() => deleteFromFavorites(id)} />
+          <FaStar onClick={() => deleteFromFavorites(id)} cursor="pointer" />
         ) : (
-          <FaRegStar onClick={() => addToFavorites(id)} />
+          <FaRegStar onClick={() => addToFavorites(id)} cursor="pointer" />
         )}
       </div>
       <div className="d-flex flex-column justify-content-center">
